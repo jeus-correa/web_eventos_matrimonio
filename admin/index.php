@@ -147,7 +147,13 @@ $events = $pdo->query('SELECT e.*,
         <label class="field"><span>Fecha</span><input type="date" name="event_date"></label>
         <label class="field full"><span>Descripción</span><textarea name="description" rows="3"></textarea></label>
         <label class="field"><span>Slug URL (opcional)</span><input type="text" name="slug" placeholder="auto desde nombre"></label>
-        <label class="field"><span>Color acento (#hex)</span><input type="text" name="accent_color" value="#c9a962" pattern="#[0-9a-fA-F]{6}"></label>
+        <label class="field">
+          <span>Color acento</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <input type="color" id="accent_picker" value="#c9a962" style="width: 44px; height: 44px; padding: 2px; background: none; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+            <input type="text" name="accent_color" id="accent_hex" value="#c9a962" pattern="#[0-9a-fA-F]{6}" placeholder="#hex" style="flex: 1;">
+          </div>
+        </label>
         <label class="field full"><span>Música (URL mp3 o YouTube)</span><input type="url" name="music_url" placeholder="https://..."></label>
         <label class="field checkbox"><input type="checkbox" name="countdown_enabled" value="1" checked> <span>Cuenta regresiva</span></label>
         <label class="field"><span>Clave álbum (opcional)</span><input type="password" name="album_password" autocomplete="new-password" placeholder="vacío = público"></label>
@@ -196,5 +202,15 @@ $events = $pdo->query('SELECT e.*,
       </div>
     </section>
   </main>
+  <script>
+    const picker = document.getElementById('accent_picker');
+    const hex = document.getElementById('accent_hex');
+    if (picker && hex) {
+      picker.addEventListener('input', () => { hex.value = picker.value; });
+      hex.addEventListener('input', () => {
+        if(/^#[0-9A-F]{6}$/i.test(hex.value)) { picker.value = hex.value; }
+      });
+    }
+  </script>
 </body>
 </html>

@@ -215,7 +215,13 @@ $qrPath = $event['qr_path'] ?? '';
         <label class="field"><span>Nombre</span><input type="text" name="name" value="<?= h((string) $event['name']) ?>" required></label>
         <label class="field"><span>Fecha</span><input type="date" name="event_date" value="<?= h((string) ($event['event_date'] ?? '')) ?>"></label>
         <label class="field"><span>Slug</span><input type="text" name="slug" value="<?= h((string) $event['slug']) ?>"></label>
-        <label class="field"><span>Color acento</span><input type="text" name="accent_color" value="<?= h((string) $event['accent_color']) ?>"></label>
+        <label class="field">
+          <span>Color acento</span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <input type="color" id="accent_picker" value="<?= h((string) $event['accent_color']) ?>" style="width: 44px; height: 44px; padding: 2px; background: none; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+            <input type="text" name="accent_color" id="accent_hex" value="<?= h((string) $event['accent_color']) ?>" pattern="#[0-9a-fA-F]{6}" placeholder="#hex" style="flex: 1;">
+          </div>
+        </label>
         <label class="field full"><span>Descripción</span><textarea name="description" rows="3"><?= h((string) ($event['description'] ?? '')) ?></textarea></label>
         <label class="field full"><span>Música URL</span><input type="url" name="music_url" value="<?= h((string) ($event['music_url'] ?? '')) ?>"></label>
         <label class="field checkbox"><input type="checkbox" name="countdown_enabled" value="1" <?= (int) $event['countdown_enabled'] === 1 ? 'checked' : '' ?>> Cuenta regresiva</label>
@@ -259,5 +265,15 @@ $qrPath = $event['qr_path'] ?? '';
       <?php if (count($items) === 0): ?><p>No hay archivos aún.</p><?php endif; ?>
     </section>
   </main>
+  <script>
+    const picker = document.getElementById('accent_picker');
+    const hex = document.getElementById('accent_hex');
+    if (picker && hex) {
+      picker.addEventListener('input', () => { hex.value = picker.value; });
+      hex.addEventListener('input', () => {
+        if(/^#[0-9A-F]{6}$/i.test(hex.value)) { picker.value = hex.value; }
+      });
+    }
+  </script>
 </body>
 </html>
