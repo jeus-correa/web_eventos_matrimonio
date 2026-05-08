@@ -1,0 +1,11 @@
+{
+  "name": "eventos/matrimonio-platform",
+  "description": "Plataforma de galería y recuerdos para eventos (PHP 8 + MySQL)",
+  "require": {
+    "php": ">=8.0",
+    "chillerlan/php-qrcode": "^4.4"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

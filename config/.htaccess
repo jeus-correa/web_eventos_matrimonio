@@ -1,0 +1,4 @@
+# No exponer credenciales por URL directa
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>

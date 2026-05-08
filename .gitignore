@@ -1,0 +1,6 @@
+/vendor/
+config/settings.php
+/uploads/*
+!/uploads/.htaccess
+/qrcodes/*
+!/qrcodes/.htaccess
